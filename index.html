@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .screen {
+            display: none;
+        }
+        .screen.active {
+            display: block;
+        }
+        .result-card {
+            transition: all 0.3s ease-in-out;
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        .result-card.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+        /* Custom styles for number input */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        /* Custom styles for select dropdowns from meal planner */
+        #meal-planner select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="%239ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            white-space: normal;
+            line-height: 1.4;
+        }
+    </style>
+    <script>
+        // Configuration for Tailwind CSS to enable class-based dark mode
+        tailwind.config = {
+          darkMode: 'class',
+          theme: {
+            extend: {
+              colors: {
+                'brand': '#4A5568',
+                'brand-dark': '#2D3748',
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-slate-900 dark:bg-slate-900 flex items-center justify-center min-h-screen transition-colors duration-300">
+
+    <div id="main-container" class="w-full max-w-lg mx-auto p-4 md:p-6 transition-all duration-300">
+        <!-- Main Menu Screen -->
+        <div id="main-menu" class="screen active">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8 text-center">
+                <div class="w-32 h-32 mx-auto mb-4 bg-brand rounded-full flex items-center justify-center">
+                    <svg class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                </div>
+
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200">Health Hub</h1>
+                <p class="text-gray-500 dark:text-gray-400 mt-4 mb-8">Ready to track your lifestyle?</p>
+                <button id="start-btn" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg transition-transform transform hover:scale-105">
+                    Start
+                </button>
+            </div>
+        </div>
+
+        <!-- Category Selection Screen -->
+        <div id="category-selection" class="screen">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8 text-center">
+                 <div class="absolute top-4 left-4">
+                    <button data-target="main-menu" class="nav-btn bg-brand hover:bg-brand-dark text-white rounded-lg p-2.5 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    </button>
+                 </div>
+                 <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6 pt-8">Select a Category</h1>
+                 <div class="space-y-4">
+                     <button data-target="weight-tools" class="nav-btn w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg">
+                         Weight
+                     </button>
+                     <button data-target="exercise-tools" class="nav-btn w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg">
+                         Exercise
+                     </button>
+                 </div>
+            </div>
+        </div>
+        
+        <!-- Weight Tools Screen -->
+        <div id="weight-tools" class="screen">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8 text-center">
+                 <div class="absolute top-4 left-4">
+                    <button data-target="category-selection" class="nav-btn bg-brand hover:bg-brand-dark text-white rounded-lg p-2.5 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    </button>
+                 </div>
+                 <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6 pt-8">Weight Calculators</h1>
+                 <div class="space-y-4">
+                     <button data-target="maintenance-calculator" class="nav-btn w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg">
+                         Weight Maintenance
+                     </button>
+                     <button data-target="goal-planner" class="nav-btn w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg">
+                         Target Weight
+                     </button>
+                      <button data-target="meal-planner" class="nav-btn w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg">
+                         Meal Planner
+                     </button>
+                 </div>
+            </div>
+        </div>
+
+        <!-- Exercise Tools Screen -->
+        <div id="exercise-tools" class="screen">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8 text-center">
+                 <div class="absolute top-4 left-4">
+                    <button data-target="category-selection" class="nav-btn bg-brand hover:bg-brand-dark text-white rounded-lg p-2.5 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    </button>
+                 </div>
+                 <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6 pt-8">Exercise Calculators</h1>
+                 <div class="space-y-4">
+                     <button data-target="walking-calculator" class="nav-btn w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg">
+                         Walking
+                     </button>
+                     <button data-target="bike-calculator" class="nav-btn w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg">
+                         Under Desk Bike
+                     </button>
+                 </div>
+            </div>
+        </div>
+        
+        <!-- NEW: Meal Planner Screen -->
+        <div id="meal-planner" class="screen">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
+                <div class="absolute top-4 left-4">
+                    <button data-target="weight-tools" class="nav-btn bg-brand hover:bg-brand-dark text-white rounded-lg p-2.5 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    </button>
+                </div>
+                <div class="text-center mb-8 pt-8">
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200">Meal Planner</h1>
+                    <p class="text-gray-500 dark:text-gray-400 mt-2">Select your items to calculate today's calories.</p>
+                </div>
+
+                <div class="flex flex-col gap-6 mb-8">
+                    <!-- Row 1: Breakfast -->
+                    <div class="flex justify-center">
+                        <div class="bg-gray-100 dark:bg-slate-700 p-4 rounded-lg w-full md:w-1/2">
+                            <div class="relative flex justify-center items-center mb-2">
+                                <h3 class="text-lg font-semibold text-brand-dark dark:text-slate-300">Breakfast</h3>
+                                <button onclick="mealPlanner_addItem('breakfasts')" class="absolute right-0 bg-green-600 hover:bg-green-700 text-white font-bold p-1 rounded-full text-sm transition-transform transform hover:scale-110 shadow-md w-6 h-6 flex items-center justify-center">+</button>
+                            </div>
+                            <div id="breakfasts-container" class="space-y-3"></div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Main Meal -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gray-100 dark:bg-slate-700 p-4 rounded-lg">
+                             <div class="relative flex justify-center items-center mb-2">
+                                <h3 class="text-lg font-semibold text-brand-dark dark:text-slate-300">Main</h3>
+                                <button onclick="mealPlanner_addItem('mains')" class="absolute right-0 bg-green-600 hover:bg-green-700 text-white font-bold p-1 rounded-full text-sm transition-transform transform hover:scale-110 shadow-md w-6 h-6 flex items-center justify-center">+</button>
+                            </div>
+                            <div id="mains-container" class="space-y-3"></div>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-slate-700 p-4 rounded-lg">
+                            <div class="relative flex justify-center items-center mb-2">
+                                <h3 class="text-lg font-semibold text-brand-dark dark:text-slate-300">Sides</h3>
+                                <button onclick="mealPlanner_addItem('sides')" class="absolute right-0 bg-green-600 hover:bg-green-700 text-white font-bold p-1 rounded-full text-sm transition-transform transform hover:scale-110 shadow-md w-6 h-6 flex items-center justify-center">+</button>
+                            </div>
+                            <div id="sides-container" class="space-y-3"></div>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-slate-700 p-4 rounded-lg">
+                            <div class="relative flex justify-center items-center mb-2">
+                                <h3 class="text-lg font-semibold text-brand-dark dark:text-slate-300">Sauce</h3>
+                                <button onclick="mealPlanner_addItem('sauces')" class="absolute right-0 bg-green-600 hover:bg-green-700 text-white font-bold p-1 rounded-full text-sm transition-transform transform hover:scale-110 shadow-md w-6 h-6 flex items-center justify-center">+</button>
+                            </div>
+                            <div id="sauces-container" class="space-y-3"></div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Dessert -->
+                    <div class="flex justify-center">
+                         <div class="bg-gray-100 dark:bg-slate-700 p-4 rounded-lg w-full md:w-1/2">
+                            <div class="relative flex justify-center items-center mb-2">
+                                <h3 class="text-lg font-semibold text-brand-dark dark:text-slate-300">Dessert</h3>
+                                <button onclick="mealPlanner_addItem('desserts')" class="absolute right-0 bg-green-600 hover:bg-green-700 text-white font-bold p-1 rounded-full text-sm transition-transform transform hover:scale-110 shadow-md w-6 h-6 flex items-center justify-center">+</button>
+                            </div>
+                            <div id="desserts-container" class="space-y-3"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Calories Display -->
+                <div class="text-center mt-6 bg-slate-100 dark:bg-slate-900/50 p-6 rounded-2xl border-2 border-brand shadow-lg">
+                    <h2 class="text-2xl font-semibold text-gray-500 dark:text-slate-400 mb-2">Total Calories</h2>
+                    <div id="meal-planner-total-calories" class="text-6xl font-bold text-brand-dark dark:text-slate-300">0</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Under Desk Bike Calculator Screen -->
+        <div id="bike-calculator" class="screen">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
+                 <div class="absolute top-4 left-4">
+                    <button data-target="exercise-tools" class="nav-btn bg-brand hover:bg-brand-dark text-white rounded-lg p-2.5 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    </button>
+                 </div>
+                <div class="text-center mb-8 pt-8">
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200">Under Desk Bike</h1>
+                    <p class="text-gray-500 dark:text-gray-400 mt-2">Enter your time and distance.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="flex flex-col text-center">
+                        <label for="time-input" class="block text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Time</label>
+                        <div class="relative">
+                            <input type="number" id="time-input" min="1" placeholder="e.g., 30" class="w-full py-3 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium rounded-lg border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-brand focus:bg-white dark:focus:bg-gray-600">
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">minutes</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col text-center">
+                        <label for="distance-input" class="block text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Distance</label>
+                        <div class="relative">
+                            <input type="number" id="distance-input" min="1" placeholder="e.g., 10" class="w-full py-3 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium rounded-lg border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-brand focus:bg-white dark:focus:bg-gray-600">
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">km</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="bike-result-container" class="result-card bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl p-6 text-center">
+                    <p class="text-lg font-medium text-slate-800 dark:text-slate-300">Estimated Calories Burned:</p>
+                    <p id="bike-calorie-result" class="text-5xl font-bold text-brand dark:text-slate-300 mt-2">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Walking Calculator Screen -->
+        <div id="walking-calculator" class="screen">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
+                 <div class="absolute top-4 left-4">
+                    <button data-target="exercise-tools" class="nav-btn bg-brand hover:bg-brand-dark text-white rounded-lg p-2.5 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    </button>
+                 </div>
+                <div class="text-center mb-8 pt-8">
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200">Walking</h1>
+                    <p class="text-gray-500 dark:text-gray-400 mt-2">Choose how you want to calculate.</p>
+                </div>
+                <div class="mb-6 flex justify-center border border-gray-200 dark:border-gray-700 rounded-lg p-1 bg-gray-100 dark:bg-gray-700">
+                    <button id="walk-mode-time" class="walk-mode-btn flex-1 py-2 px-4 rounded-md text-sm font-medium bg-white dark:bg-slate-800 text-brand dark:text-slate-300 shadow">By Time</button>
+                    <button id="walk-mode-steps" class="walk-mode-btn flex-1 py-2 px-4 rounded-md text-sm font-medium text-gray-500 dark:text-gray-400">By Steps</button>
+                </div>
+                <div class="space-y-6 mb-6">
+                    <div id="walking-time-container" class="flex flex-col text-center">
+                        <label for="walking-time-input" class="block text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Time</label>
+                        <div class="relative">
+                            <input type="number" id="walking-time-input" min="1" placeholder="e.g., 45" class="w-full py-3 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium rounded-lg border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-brand focus:bg-white dark:focus:bg-gray-600">
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">minutes</span>
+                        </div>
+                    </div>
+                    <div id="walking-steps-container" class="hidden flex flex-col text-center">
+                        <label for="walking-steps-input" class="block text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Steps</label>
+                        <div class="relative">
+                            <input type="number" id="walking-steps-input" min="0" placeholder="e.g., 5000" class="w-full py-3 px-4 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium rounded-lg border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-brand focus:bg-white dark:focus:bg-gray-600">
+                             <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">steps</span>
+                        </div>
+                        <p class="text-xs text-center text-gray-400 dark:text-gray-500 mt-2">Assuming an average pace</p>
+                    </div>
+                </div>
+                <div id="walking-result-container" class="result-card bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl p-6 text-center">
+                    <p class="text-lg font-medium text-slate-800 dark:text-slate-300">Estimated Calories Burned:</p>
+                    <p id="walking-calorie-result" class="text-5xl font-bold text-brand dark:text-slate-300 mt-2">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Maintenance Calculator Screen -->
+        <div id="maintenance-calculator" class="screen">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
+                <div class="absolute top-4 left-4">
+                    <button data-target="weight-tools" class="nav-btn bg-brand hover:bg-brand-dark text-white rounded-lg p-2.5 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    </button>
+                </div>
+                <div class="text-center mb-8 pt-8">
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200">Weight Maintenance</h1>
+                    <p class="text-gray-500 dark:text-gray-400 mt-2">Find the calories to maintain your weight.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="md:col-span-2">
+                        <label class="block text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mb-2">Gender</label>
+                        <div class="flex justify-center border border-gray-700 rounded-lg p-1 bg-gray-700 max-w-xs mx-auto">
+                           <button id="maintenance-gender-male" class="gender-btn-maintenance flex-1 py-2 px-4 rounded-md text-sm font-medium">Male</button>
+                           <button id="maintenance-gender-female" class="gender-btn-maintenance flex-1 py-2 px-4 rounded-md text-sm font-medium">Female</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="maintenance-age" class="block text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mb-2">Age</label>
+                        <input type="number" id="maintenance-age" placeholder="e.g., 30" class="maintenance-input w-full py-2 px-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-200">
+                    </div>
+                    <div>
+                        <label for="maintenance-weight" class="block text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mb-2">Weight</label>
+                        <div class="relative">
+                            <input type="number" id="maintenance-weight" placeholder="e.g., 70" class="maintenance-input w-full py-2 px-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-200">
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">kg</span>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 flex justify-center">
+                        <div class="w-full md:w-1/2">
+                            <label for="maintenance-height" class="block text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mb-2">Height</label>
+                            <div class="relative">
+                                <input type="number" id="maintenance-height" placeholder="e.g., 175" class="maintenance-input w-full py-2 px-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-200">
+                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">cm</span>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="md:col-span-2">
+                        <label for="maintenance-lifestyle" class="block text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mb-2">Lifestyle</label>
+                        <select id="maintenance-lifestyle" class="maintenance-input w-full py-2.5 px-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-200">
+                            <option value="1.2">Sedentary</option>
+                            <option value="1.375">Lightly Active</option>
+                            <option value="1.55">Moderately Active</option>
+                            <option value="1.725">Very Active</option>
+                            <option value="1.9">Extra Active</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="maintenance-result-container" class="result-card bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl p-6 text-center">
+                    <p class="text-lg font-medium text-slate-800 dark:text-slate-300">Daily Calories:</p>
+                    <p class="text-5xl font-bold text-brand dark:text-slate-300 mt-2"><span id="maintenance-calories">0</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Weight Goal Planner Screen -->
+        <div id="goal-planner" class="screen">
+            <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
+                 <div class="absolute top-4 left-4">
+                    <button data-target="weight-tools" class="nav-btn bg-brand hover:bg-brand-dark text-white rounded-lg p-2.5 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    </button>
+                 </div>
+                 <div class="text-center mb-8 pt-8">
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200">Target Weight</h1>
+                    <p class="text-gray-500 dark:text-gray-400 mt-2">Find the calories to achieve your target weight.</p>
+                </div>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="md:col-span-2">
+                        <label class="block text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mb-2">Gender</label>
+                        <div class="flex justify-center border border-gray-700 rounded-lg p-1 bg-gray-700 max-w-xs mx-auto">
+                           <button id="goal-gender-male" class="gender-btn-goal flex-1 py-2 px-4 rounded-md text-sm font-medium">Male</button>
+                           <button id="goal-gender-female" class="gender-btn-goal flex-1 py-2 px-4 rounded-md text-sm font-medium">Female</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="goal-age" class="block text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mb-2">Age</label>
+                        <input type="number" id="goal-age" placeholder="e.g., 30" class="goal-input w-full py-2 px-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-200">
+                    </div>
+                    <div>
+                        <label for="goal-height" class="block text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mb-2">Height</label>
+                        <div class="relative">
+                            <input type="number" id="goal-height" placeholder="e.g., 175" class="goal-input w-full py-2 px-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-200">
+                             <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">cm</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="goal-current-weight" class="block text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mb-2">Current Weight</label>
+                        <div class="relative">
+                            <input type="number" id="goal-current-weight" placeholder="e.g., 70" class="goal-input w-full py-2 px-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-200">
+                             <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">kg</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="goal-target-weight" class="block text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mb-2">Target Weight</label>
+                         <div class="relative">
+                            <input type="number" id="goal-target-weight" placeholder="e.g., 65" class="goal-input w-full py-2 px-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-200">
+                             <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">kg</span>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="goal-lifestyle" class="block text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mb-2">Lifestyle</label>
+                        <select id="goal-lifestyle" class="goal-input w-full py-2.5 px-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-200">
+                            <option value="1.2">Sedentary</option>
+                            <option value="1.375">Lightly Active</option>
+                            <option value="1.55">Moderately Active</option>
+                            <option value="1.725">Very Active</option>
+                            <option value="1.9">Extra Active</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="goal-result-container" class="result-card bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl p-6 text-center mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center items-center">
+                        <div>
+                            <p class="text-lg font-medium text-slate-800 dark:text-slate-300">Daily Calories:</p>
+                            <p class="text-4xl font-bold text-brand dark:text-slate-300"><span id="goal-calories">0</span></p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-medium text-slate-800 dark:text-slate-300">Time to Goal:</p>
+                            <p class="text-4xl font-bold text-brand dark:text-slate-300"><span id="goal-time">0</span></p>
+                            <p class="text-sm text-gray-400 dark:text-gray-500">weeks</p>
+                        </div>
+                    </div>
+                </div>
+                 <div id="custom-goal-container" class="result-card bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl p-6 text-center">
+                     <h2 class="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">Set Your Own Timeline</h2>
+                     <div class="space-y-4">
+                         <div class="relative w-full max-w-xs mx-auto">
+                            <input type="number" id="goal-custom-weeks" placeholder="e.g., 12" class="goal-input w-full py-2 px-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-200 text-center">
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">weeks</span>
+                         </div>
+                         <div id="custom-goal-result-display" class="hidden mt-4">
+                            <h3 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-2">Daily Calories Until Goal Is Reached</h3>
+                            <p class="text-4xl font-bold text-brand dark:text-slate-300"><span id="custom-goal-calories">0</span></p>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center mt-8">
+            <p class="text-gray-400 dark:text-gray-500 text-sm">Disclaimer: This is an estimate. Actual results may vary.</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- Screen Navigation ---
+        const screens = document.querySelectorAll('.screen');
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const startBtn = document.getElementById('start-btn');
+        const mainContainer = document.getElementById('main-container');
+
+        function showScreen(screenId) {
+            // Adjust container width for the meal planner
+            if (screenId === 'meal-planner') {
+                mainContainer.classList.remove('max-w-lg');
+                mainContainer.classList.add('max-w-5xl');
+            } else {
+                mainContainer.classList.remove('max-w-5xl');
+                mainContainer.classList.add('max-w-lg');
+            }
+
+            screens.forEach(screen => {
+                screen.classList.remove('active');
+            });
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) {
+                targetScreen.classList.add('active');
+            }
+        }
+        
+        startBtn.addEventListener('click', () => showScreen('category-selection'));
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                showScreen(targetId);
+            });
+        });
+
+        // --- Bike Calculator ---
+        const cpmDataPoints = [
+            [5, 1.8], [8, 2.03], [10, 2.2], [12, 2.43], [15, 2.8], [16, 2.93],
+            [20, 3.53], [24, 4.07], [30, 4.9], [40, 6.27]
+        ];
+        const timeInput = document.getElementById('time-input');
+        const distanceInput = document.getElementById('distance-input');
+        const bikeCalorieResultEl = document.getElementById('bike-calorie-result');
+        const bikeResultContainer = document.getElementById('bike-result-container');
+
+        function getCpmForSpeed(speed) {
+            if (speed <= cpmDataPoints[0][0]) return cpmDataPoints[0][1];
+            if (speed >= cpmDataPoints[cpmDataPoints.length - 1][0]) return cpmDataPoints[cpmDataPoints.length - 1][1];
+            
+            let lowerBound, upperBound;
+            for (let i = 0; i < cpmDataPoints.length - 1; i++) {
+                if (speed >= cpmDataPoints[i][0] && speed <= cpmDataPoints[i + 1][0]) {
+                    lowerBound = cpmDataPoints[i];
+                    upperBound = cpmDataPoints[i + 1];
+                    break;
+                }
+            }
+            const [speed1, cpm1] = lowerBound;
+            const [speed2, cpm2] = upperBound;
+            const speedFraction = (speed - speed1) / (speed2 - speed1);
+            return cpm1 + (speedFraction * (cpm2 - cpm1));
+        }
+
+        function calculateBikeCalories() {
+            const time = parseFloat(timeInput.value);
+            const distance = parseFloat(distanceInput.value);
+            if (!time || !distance || time <= 0 || distance <= 0) {
+                bikeCalorieResultEl.textContent = '0';
+                bikeResultContainer.classList.remove('show');
+                return;
+            }
+            const speed = distance / (time / 60);
+            const cpm = getCpmForSpeed(speed);
+            const totalCalories = Math.round(cpm * time);
+            bikeCalorieResultEl.textContent = totalCalories;
+            if (!bikeResultContainer.classList.contains('show')) {
+                bikeResultContainer.classList.add('show');
+            }
+        }
+        
+        timeInput.addEventListener('input', calculateBikeCalories);
+        distanceInput.addEventListener('input', calculateBikeCalories);
+
+        // --- Walking Calculator ---
+        const walkingTimeInput = document.getElementById('walking-time-input');
+        const walkingStepsInput = document.getElementById('walking-steps-input');
+        const walkingCalorieResultEl = document.getElementById('walking-calorie-result');
+        const walkingResultContainer = document.getElementById('walking-result-container');
+        const walkModeTimeBtn = document.getElementById('walk-mode-time');
+        const walkModeStepsBtn = document.getElementById('walk-mode-steps');
+        const walkingTimeContainer = document.getElementById('walking-time-container');
+        const walkingStepsContainer = document.getElementById('walking-steps-container');
+        let currentWalkMode = 'time';
+        function setWalkMode(mode) {
+            currentWalkMode = mode;
+            walkingTimeInput.value = '';
+            walkingStepsInput.value = '';
+            calculateWalkingCalories();
+            if (mode === 'time') {
+                walkModeTimeBtn.classList.add('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                walkModeTimeBtn.classList.remove('text-gray-500', 'dark:text-gray-400');
+                walkModeStepsBtn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                walkModeStepsBtn.classList.add('text-gray-500', 'dark:text-gray-400');
+                walkingTimeContainer.classList.remove('hidden');
+                walkingStepsContainer.classList.add('hidden');
+            } else {
+                walkModeStepsBtn.classList.add('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                walkModeStepsBtn.classList.remove('text-gray-500', 'dark:text-gray-400');
+                walkModeTimeBtn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                walkModeTimeBtn.classList.add('text-gray-500', 'dark:text-gray-400');
+                walkingStepsContainer.classList.remove('hidden');
+                walkingTimeContainer.classList.add('hidden');
+            }
+        }
+        walkModeTimeBtn.addEventListener('click', () => setWalkMode('time'));
+        walkModeStepsBtn.addEventListener('click', () => setWalkMode('steps'));
+        function calculateWalkingCalories() {
+            let totalCalories = 0;
+            const walkingCpm = 3.7;
+            const stepsPerMinute = 100;
+            if (currentWalkMode === 'time') {
+                const time = parseFloat(walkingTimeInput.value);
+                if (time && time > 0) {
+                    totalCalories = Math.round(time * walkingCpm);
+                }
+            } else {
+                const steps = parseFloat(walkingStepsInput.value);
+                if (steps && steps > 0) {
+                    const estimatedTime = steps / stepsPerMinute;
+                    totalCalories = Math.round(estimatedTime * walkingCpm);
+                }
+            }
+            walkingCalorieResultEl.textContent = totalCalories;
+            if (totalCalories > 0) {
+                walkingResultContainer.classList.add('show');
+            } else {
+                walkingResultContainer.classList.remove('show');
+            }
+        }
+        walkingTimeInput.addEventListener('input', calculateWalkingCalories);
+        walkingStepsInput.addEventListener('input', calculateWalkingCalories);
+
+        // --- Maintenance and Goal Calculators ---
+        const maintenanceInputs = document.querySelectorAll('.maintenance-input');
+        const maintenanceResultContainer = document.getElementById('maintenance-result-container');
+        const maintenanceCaloriesEl = document.getElementById('maintenance-calories');
+        const goalInputs = document.querySelectorAll('.goal-input');
+        const goalResultContainer = document.getElementById('goal-result-container');
+        const goalCaloriesEl = document.getElementById('goal-calories');
+        const goalTimeEl = document.getElementById('goal-time');
+        const customGoalContainer = document.getElementById('custom-goal-container');
+        const customWeeksInput = document.getElementById('goal-custom-weeks');
+        const customGoalResultDisplay = document.getElementById('custom-goal-result-display');
+        const customGoalCaloriesEl = document.getElementById('custom-goal-calories');
+
+        let currentMaintenanceGender = 'male';
+        let currentGoalGender = 'male';
+
+        const maintenanceGenderMaleBtn = document.getElementById('maintenance-gender-male');
+        const maintenanceGenderFemaleBtn = document.getElementById('maintenance-gender-female');
+        const goalGenderMaleBtn = document.getElementById('goal-gender-male');
+        const goalGenderFemaleBtn = document.getElementById('goal-gender-female');
+
+        function setMaintenanceGender(gender) {
+            currentMaintenanceGender = gender;
+            updateMaintenanceCalculations();
+            if (gender === 'male') {
+                maintenanceGenderMaleBtn.classList.add('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                maintenanceGenderMaleBtn.classList.remove('text-gray-500', 'dark:text-gray-400');
+                maintenanceGenderFemaleBtn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                maintenanceGenderFemaleBtn.classList.add('text-gray-500', 'dark:text-gray-400');
+            } else {
+                maintenanceGenderFemaleBtn.classList.add('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                maintenanceGenderFemaleBtn.classList.remove('text-gray-500', 'dark:text-gray-400');
+                maintenanceGenderMaleBtn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                maintenanceGenderMaleBtn.classList.add('text-gray-500', 'dark:text-gray-400');
+            }
+        }
+
+        function setGoalGender(gender) {
+            currentGoalGender = gender;
+            updateGoalCalculations();
+            if (gender === 'male') {
+                goalGenderMaleBtn.classList.add('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                goalGenderMaleBtn.classList.remove('text-gray-500', 'dark:text-gray-400');
+                goalGenderFemaleBtn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                goalGenderFemaleBtn.classList.add('text-gray-500', 'dark:text-gray-400');
+            } else {
+                goalGenderFemaleBtn.classList.add('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                goalGenderFemaleBtn.classList.remove('text-gray-500', 'dark:text-gray-400');
+                goalGenderMaleBtn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-brand', 'dark:text-slate-300', 'shadow');
+                goalGenderMaleBtn.classList.add('text-gray-500', 'dark:text-gray-400');
+            }
+        }
+
+        maintenanceGenderMaleBtn.addEventListener('click', () => setMaintenanceGender('male'));
+        maintenanceGenderFemaleBtn.addEventListener('click', () => setMaintenanceGender('female'));
+        goalGenderMaleBtn.addEventListener('click', () => setGoalGender('male'));
+        goalGenderFemaleBtn.addEventListener('click', () => setGoalGender('female'));
+
+        function calculateTDEE(weight, height, age, gender, activityMultiplier) {
+            if (!weight || !height || !age || !gender || !activityMultiplier) return 0;
+            const bmr = (gender === 'male')
+                ? (10 * weight) + (6.25 * height) - (5 * age) + 5
+                : (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            return Math.round(bmr * activityMultiplier);
+        }
+
+        function updateMaintenanceCalculations() {
+            const gender = currentMaintenanceGender;
+            const age = parseFloat(document.getElementById('maintenance-age').value);
+            const weight = parseFloat(document.getElementById('maintenance-weight').value);
+            const height = parseFloat(document.getElementById('maintenance-height').value);
+            const lifestyle = parseFloat(document.getElementById('maintenance-lifestyle').value);
+
+            if (age && weight && height) {
+                maintenanceResultContainer.classList.add('show');
+                const tdee = calculateTDEE(weight, height, age, gender, lifestyle);
+                maintenanceCaloriesEl.textContent = tdee;
+            } else {
+                maintenanceResultContainer.classList.remove('show');
+                maintenanceCaloriesEl.textContent = '0';
+            }
+        }
+        
+        function updateCustomGoalCalculation() {
+             const gender = currentGoalGender;
+            const age = parseFloat(document.getElementById('goal-age').value);
+            const currentWeight = parseFloat(document.getElementById('goal-current-weight').value);
+            const height = parseFloat(document.getElementById('goal-height').value);
+            const lifestyle = parseFloat(document.getElementById('goal-lifestyle').value);
+            const targetWeight = parseFloat(document.getElementById('goal-target-weight').value);
+            const customWeeks = parseFloat(customWeeksInput.value);
+
+            const allPrimaryInputsFilled = age && currentWeight && height && targetWeight && currentWeight !== targetWeight;
+
+            if (allPrimaryInputsFilled && customWeeks > 0) {
+                const maintenanceCalories = calculateTDEE(currentWeight, height, age, gender, lifestyle);
+                const weightDiffKg = currentWeight - targetWeight;
+                const totalCaloriesToChange = weightDiffKg * 7700;
+                const totalDays = customWeeks * 7;
+                const dailyCalorieChange = Math.round(totalCaloriesToChange / totalDays);
+                
+                const customCalories = maintenanceCalories - dailyCalorieChange;
+                
+                customGoalCaloriesEl.textContent = customCalories;
+                customGoalResultDisplay.classList.remove('hidden');
+
+            } else {
+                customGoalResultDisplay.classList.add('hidden');
+                customGoalCaloriesEl.textContent = '0';
+            }
+        }
+
+        function updateGoalCalculations() {
+            const gender = currentGoalGender;
+            const age = parseFloat(document.getElementById('goal-age').value);
+            const currentWeight = parseFloat(document.getElementById('goal-current-weight').value);
+            const height = parseFloat(document.getElementById('goal-height').value);
+            const lifestyle = parseFloat(document.getElementById('goal-lifestyle').value);
+            const targetWeight = parseFloat(document.getElementById('goal-target-weight').value);
+
+            const allInputsFilled = age && currentWeight && height && targetWeight && currentWeight !== targetWeight;
+
+            if (allInputsFilled) {
+                goalResultContainer.classList.add('show');
+                customGoalContainer.classList.add('show');
+                const maintenanceCalories = calculateTDEE(currentWeight, height, age, gender, lifestyle);
+                const calorieDeficitOrSurplus = 500;
+                const weightDiffKg = Math.abs(currentWeight - targetWeight);
+                const totalCaloriesToChange = weightDiffKg * 7700;
+                const estimatedDays = Math.round(totalCaloriesToChange / calorieDeficitOrSurplus);
+                const estimatedWeeks = (estimatedDays / 7).toFixed(1);
+
+                let recommendedCalories = 0;
+                if (targetWeight < currentWeight) {
+                    recommendedCalories = maintenanceCalories - calorieDeficitOrSurplus;
+                } else {
+                    recommendedCalories = maintenanceCalories + calorieDeficitOrSurplus;
+                }
+                
+                goalCaloriesEl.textContent = recommendedCalories;
+                goalTimeEl.textContent = estimatedWeeks;
+                updateCustomGoalCalculation();
+            } else {
+                goalResultContainer.classList.remove('show');
+                customGoalContainer.classList.remove('show');
+                goalCaloriesEl.textContent = '0';
+                goalTimeEl.textContent = '0';
+                customWeeksInput.value = '';
+                updateCustomGoalCalculation();
+            }
+        }
+        
+        maintenanceInputs.forEach(input => input.addEventListener('input', updateMaintenanceCalculations));
+        goalInputs.forEach(input => input.addEventListener('input', updateGoalCalculations));
+        customWeeksInput.addEventListener('input', updateCustomGoalCalculation);
+        
+        // Set initial state for toggles
+        setMaintenanceGender('male');
+        setGoalGender('male');
+
+        // --- MEAL PLANNER SCRIPT ---
+        
+        const mealPlanner_foodData = {
+            breakfasts: [
+                { name: "Pain Au Chocolat", baseCalories: 188, unit: 'item' },
+                { name: "Ham & Cheese Toastie", baseCalories: 350, unit: 'item' },
+                { name: "Sliced Bread", baseCalories: 96, unit: 'slice' },
+                { name: "Nutoka Sandwhich", baseCalories: 300, unit: 'item' },
+                { name: "Peanut Butter Sandwhich", baseCalories: 315, unit: 'item' },
+                { name: "Thin Ham", baseCalories: 10, unit: 'slice' },
+                { name: "Cheese", baseCalories: 100, unit: 'slice' },
+                { name: "Salami", baseCalories: 32, unit: 'slice' },
+                { name: "Back Bacon", baseCalories: 106, unit: 'slice' },
+                { name: "Yoghurt", baseCalories: 168, unit: 'pot' },
+                { name: "Fromage Frais", baseCalories: 42, unit: 'pot' },
+                { name: "Coffee", baseCalories: 10, unit: 'cup' },
+                { name: "Latte", baseCalories: 80, unit: 'cup' },
+                { name: "Milk", baseCalories: 70, unit: '150ml' },
+                { name: "Chocolate Fudge Milk", baseCalories: 370, unit: '500ml' },
+                { name: "Cereal (Honey Nut)", baseCalories: 119, unit: '30g' },
+                { name: "Cereal (Honey Hoops)", baseCalories: 183, unit: '30g' },
+                { name: "Cereal (Chocolate Pillows)", baseCalories: 170, unit: '40g' },
+                { name: "Cereal (Porridge)", baseCalories: 150, unit: 'sachet' },
+                { name: "Cereal (Pecan & Maple Crisp)", baseCalories: 136, unit: '30g' },
+                { name: "Banana", baseCalories: 89, unit: 'item' },
+                { name: "Strawberries", baseCalories: 33, unit: '100g' },
+                { name: "Apple", baseCalories: 95, unit: 'item' },
+                { name: "LIDL Artisan Baguette", baseCalories: 293, unit: 'half' },
+                { name: "LIDL Baguette", baseCalories: 378, unit: 'half' },
+                { name: "LIDL Pizza", baseCalories: 260, unit: 'item' },
+                { name: "LIDL Chocolate Hazelnut Croissant", baseCalories: 313, unit: 'item' },
+                { name: "LIDL Cinnamon Bun", baseCalories: 397, unit: 'item' },
+                { name: "LIDL Chocolate Hazelnut Doughnut", baseCalories: 389, unit: 'item' },
+                { name: "LIDL Triple Chocolate Muffin", baseCalories: 383, unit: 'item' },
+                { name: "LIDL Cookie", baseCalories: 320, unit: 'item' },
+                { name: "LIDL Brownie", baseCalories: 308, unit: 'item' },
+                { name: "LIDL Pastel de Nata", baseCalories: 164, unit: 'item' }
+            ],
+            mains: [
+                { name: "Pancetta", baseCalories: 236, unit: 'half pack' },
+                { name: "Sausages", baseCalories: 76, unit: 'sausage' },
+                { name: "Pork Strips", baseCalories: 215, unit: '150g' },
+                { name: "Beef Mince (10%)", baseCalories: 215, unit: '125g' },
+                { name: "Pork Mince (12%)", baseCalories: 230, unit: '125g' },
+                { name: "Beef Meatballs (5%)", baseCalories: 33, unit: 'meatball' },
+                { name: "Chicken Thighs", baseCalories: 186, unit: '100g' },
+                { name: "Chicken Tikka", baseCalories: 205, unit: '125g' },
+                { name: "Beef Thin Steak", baseCalories: 146, unit: 'steak' },
+                { name: "Beef Thick Steak", baseCalories: 188, unit: 'steak' },
+                { name: "Breaded Chicken Steak", baseCalories: 270, unit: 'steak' },
+                { name: "Pork Loin Steak", baseCalories: 204, unit: 'steak' },
+                { name: "Pork Shoulder Steak", baseCalories: 295, unit: 'steak' },
+                { name: "Battered Fish Fillet", baseCalories: 244, unit: 'fillet' },
+                { name: "King Prawns", baseCalories: 67, unit: '100g' },
+                { name: "Tuna Chunks", baseCalories: 109, unit: '100g' },
+                { name: "Lasagne", baseCalories: 561, unit: 'half pack' },
+                { name: "Burgers", baseCalories: 186, unit: 'burger' },
+                { name: "Pizza", baseCalories: 400, unit: 'half pizza' },
+                { name: "ASDA Pizza", baseCalories: 1300, unit: 'half pizza' },
+                { name: "King Kebab", baseCalories: 602, unit: 'half pack' },
+                { name: "Balti Pie", baseCalories: 394, unit: 'pie' },
+                { name: "Red Pepper & Mozzarella Parcel", baseCalories: 437, unit: 'lattice' },
+                { name: "Three Cheese Lattice", baseCalories: 426, unit: 'lattice' },
+                { name: "ALDI KFC", baseCalories: 900, unit: 'half pack' },
+                { name: "Shin Ramyun", baseCalories: 450, unit: 'pack' },
+                { name: "Chicken Nuggets", baseCalories: 44, unit: 'nugget' },
+                { name: "Chicken Dippers", baseCalories: 37, unit: 'dipper' },
+                { name: "Iceland Shanghai Beef Noodles", baseCalories: 403, unit: 'pack' },
+                { name: "Iceland Char Siu Pork & Noodles", baseCalories: 535, unit: 'pack' },
+                { name: "Francesinha", baseCalories: 1500, unit: 'item' }
+            ],
+            sauces: [
+                { name: "Korma Sauce", baseCalories: 302, unit: 'half jar' },
+                { name: "Rogan Josh Sauce", baseCalories: 170, unit: 'half jar' },
+                { name: "Tikka Masala Sauce", baseCalories: 190, unit: 'half jar' },
+                { name: "Red Pesto", baseCalories: 236, unit: 'half jar' },
+                { name: "Ricotta & Red Pepper Pesto", baseCalories: 228, unit: 'half jar' },
+                { name: "Peanut Butter", baseCalories: 156, unit: '25g' },
+                { name: "Carbonara", baseCalories: 185, unit: 'serving' },
+                { name: "Maggi Spice Bag", baseCalories: 117, unit: 'pack' },
+                { name: "Spaghetti Bolognese Mix", baseCalories: 66, unit: 'half pack' }
+            ],
+            sides: [
+                { name: "Rice", baseCalories: 340, unit: 'half cup' },
+                { name: "Pasta", baseCalories: 160, unit: '100g' },
+                { name: "Potato Chips", baseCalories: 167, unit: '100g' },
+                { name: "Potato Wedges", baseCalories: 182, unit: '100g' },
+                { name: "Mashed Potato", baseCalories: 150, unit: '150g' },
+                { name: "Pasta & Sauce Mix", baseCalories: 221, unit: 'half pack' },
+                { name: "Baked Beans", baseCalories: 187, unit: 'half tin' },              
+                { name: "Eggs", baseCalories: 60, unit: 'egg' },
+                { name: "Onions", baseCalories: 34, unit: '100g' },
+                { name: "Mixed Peppers", baseCalories: 25, unit: '100g' },
+                { name: "Mushrooms", baseCalories: 19, unit: '100g' },
+                { name: "Burger Buns", baseCalories: 130, unit: 'bun' },
+                { name: "Garlic Bread", baseCalories: 135, unit: 'quarter' },
+                { name: "Naan Bread", baseCalories: 400, unit: 'naan' },
+                { name: "Onion Bhaji", baseCalories: 130, unit: 'bhaji' },
+                { name: "Poppadoms", baseCalories: 35, unit: 'poppadom' },
+                { name: "Onion Rings", baseCalories: 221, unit: '100g' }
+            ],
+            desserts: [
+                { name: "Custard Creams", baseCalories: 64, unit: 'biscuit' },
+                { name: "Cookies", baseCalories: 52, unit: 'biscuit' },
+                { name: "Caramelised Biscuits", baseCalories: 40, unit: 'biscuit' },
+                { name: "Cookies & Cream", baseCalories: 52, unit: 'biscuit' },
+                { name: "Malted Milk", baseCalories: 43, unit: 'biscuit' },
+                { name: "Shortbread Fingers", baseCalories: 91, unit: 'biscuit' },
+                { name: "Rich Tea", baseCalories: 40, unit: 'biscuit' },
+                { name: "Digestives", baseCalories: 69, unit: 'biscuit' },
+                { name: "Dark Chocolate Digestives", baseCalories: 84, unit: 'biscuit' },
+                { name: "Milk Chocolate Digestives", baseCalories: 81, unit: 'biscuit' },
+                { name: "Oaties", baseCalories: 70, unit: 'biscuit' },
+                { name: "Chocolate Oaties", baseCalories: 84, unit: 'biscuit' },
+                { name: "M&S Biscuits", baseCalories: 250, unit: '48g' },
+                { name: "Dark Chocolate Bar", baseCalories: 267, unit: 'half bar' },
+                { name: "Milk Chocolate Bar", baseCalories: 267, unit: 'half bar' },
+                { name: "White Chocolate Bar", baseCalories: 279, unit: 'half bar' },
+                { name: "Chocolate Yoghurt", baseCalories: 112, unit: 'pot' },
+                { name: "Crisps", baseCalories: 132, unit: '25g bag' },
+                { name: "Popcorn", baseCalories: 741, unit: '100g' },
+                { name: "Triple Chocolate Cookie Mix", baseCalories: 360, unit: 'quarter' },
+                { name: "Milk Chocolate Cookie Mix", baseCalories: 360, unit: 'quarter' },
+                { name: "White Chocolate Cookie Mix", baseCalories: 360, unit: 'quarter' },
+                { name: "Brownie Mix", baseCalories: 246, unit: 'sixth' },
+                { name: "Cupcake Mix", baseCalories: 138, unit: 'sixth' }
+            ]
+        };
+        const mealPlanner_totalCaloriesDisplay = document.getElementById('meal-planner-total-calories');
+        const mealPlanner_itemContainers = { breakfasts: document.getElementById('breakfasts-container'), mains: document.getElementById('mains-container'), sauces: document.getElementById('sauces-container'), sides: document.getElementById('sides-container'), desserts: document.getElementById('desserts-container') };
+
+        function mealPlanner_parseUnit(unitString) {
+            const match = unitString.match(/(\d*\.?\d+)\s*([a-zA-Z\s]+)/);
+            if (match) return { baseAmount: parseFloat(match[1]), unitType: match[2].trim(), controlType: 'amount_only' };
+            return { baseAmount: 1, unitType: unitString, controlType: 'count_only' };
+        }
+
+        function mealPlanner_populateSelect(selectElement, items, placeholder) {
+            selectElement.innerHTML = `<option value="-1">${placeholder}</option>`;
+            items.forEach((item, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = item.name;
+                selectElement.appendChild(option);
+            });
+        }
+
+        function mealPlanner_updateRemoveButtonsVisibility(container) {
+            const removeButtons = container.querySelectorAll('.remove-btn');
+            removeButtons.forEach((btn) => {
+                btn.classList.toggle('hidden', removeButtons.length === 1);
+            });
+        }
+
+        function mealPlanner_createItemElement(category) {
+            const placeholderName = category === 'mains' ? 'main' : (category === 'sides' ? 'side' : category.slice(0, -1));
+            const placeholder = `-- Select a ${placeholderName} --`;
+            const wrapper = document.createElement('div');
+            wrapper.className = 'item-wrapper bg-white dark:bg-slate-900/70 p-3 rounded-lg';
+            wrapper.innerHTML = `
+                <select data-category="${category}" onchange="mealPlanner_handleSelectionChange(this)" class="w-full bg-gray-100 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-md p-3 text-gray-800 dark:text-white focus:ring-2 focus:ring-brand dark:focus:border-brand"></select>
+                <div class="details-container hidden flex items-center justify-between gap-2 mt-3">
+                    <div class="flex items-center gap-1 min-w-0">
+                        <div class="item-count-wrapper flex items-center">
+                            <input type="number" value="1" min="0" step="0.1" oninput="mealPlanner_calculateTotal()" class="item-count-input w-16 bg-gray-100 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-md p-2 text-gray-800 dark:text-white text-center" title="Quantity">
+                        </div>
+                        <div class="amount-wrapper flex items-center">
+                            <input type="number" value="1" min="0" oninput="mealPlanner_calculateTotal()" class="amount-input w-16 bg-gray-100 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-md p-2 text-gray-800 dark:text-white text-center" title="Amount">
+                        </div>
+                        <span class="unit-span text-gray-500 dark:text-slate-400 text-left pl-1 whitespace-nowrap truncate" title="Unit type">unit</span>
+                    </div>
+                    <div class="flex items-center gap-1 flex-shrink-0">
+                        <span class="subtotal-span font-semibold text-brand-dark dark:text-slate-300 whitespace-nowrap">0 kcal</span>
+                        <button class="remove-btn bg-red-600 hover:bg-red-700 text-white font-bold p-2 rounded-md transition-colors text-xs leading-none">✖</button>
+                    </div>
+                </div>
+            `;
+            mealPlanner_populateSelect(wrapper.querySelector('select'), mealPlanner_foodData[category], placeholder);
+            
+            const removeBtn = wrapper.querySelector('.remove-btn');
+            removeBtn.onclick = () => {
+                const parentContainer = wrapper.parentElement;
+                wrapper.remove();
+                mealPlanner_calculateTotal();
+                mealPlanner_updateRemoveButtonsVisibility(parentContainer);
+            };
+            return wrapper;
+        }
+        
+        function mealPlanner_addItem(category) {
+            const container = mealPlanner_itemContainers[category];
+            container.appendChild(mealPlanner_createItemElement(category));
+            mealPlanner_updateRemoveButtonsVisibility(container);
+        }
+
+        function mealPlanner_getFormattedUnit(item, value) {
+            const count = parseFloat(value);
+            let text = item.unitType;
+            let isLong = false;
+
+            const fractionWords = { 'half': 2, 'quarter': 4, 'sixth': 6, 'eighth': 8, 'third': 3 };
+            const fractionKey = Object.keys(fractionWords).find(key => item.unitType.startsWith(key));
+
+            if (item.name === 'Burger Buns') {
+                return { text: count === 1 ? 'pair' : 'pairs', isLong: false };
+            }
+
+            if (item.controlType === 'count_only' && fractionKey) {
+                const denominator = fractionWords[fractionKey];
+                const baseUnit = item.unitType.replace(fractionKey, '').trim();
+                const pluralUnit = baseUnit.endsWith('s') ? baseUnit : `${baseUnit}s`;
+                const singularUnit = baseUnit.endsWith('s') ? baseUnit.slice(0, -1) : baseUnit;
+                
+                if (count % 1 === 0) { // Integer quantities
+                    if (count > 0 && count < denominator) {
+                        if (count * 2 === denominator) { text = `half ${singularUnit}`; } 
+                        else if (count * 4 === denominator) { text = `quarter ${singularUnit}`; }
+                        else { text = `${count}/${denominator} ${singularUnit}`; }
+                    } else if (count === denominator) {
+                        text = `full ${singularUnit}`;
+                    } else if (count > denominator) {
+                        const wholePart = Math.floor(count / denominator);
+                        const remainder = count % denominator;
+                        if (remainder === 0) {
+                            text = `${wholePart} full ${pluralUnit}`;
+                        } else {
+                            text = `${wholePart} and ${remainder}/${denominator} ${pluralUnit}`;
+                            isLong = true;
+                        }
+                    } else { text = item.unitType; }
+                } else {
+                    const totalAsDecimal = count * (1 / denominator);
+                    if (Math.abs(totalAsDecimal - 0.25) < 0.01) { text = `quarter ${singularUnit}`; }
+                    else if (Math.abs(totalAsDecimal - 0.5) < 0.01) { text = `half ${singularUnit}`; }
+                    else if (Math.abs(totalAsDecimal - 0.75) < 0.01) { text = `3/4 ${singularUnit}`; }
+                    else { text = item.unitType; }
+                }
+                return { text, isLong };
+            }
+
+            if (item.controlType === 'count_only') {
+                text = (count === 1) ? item.unitType : (item.unitType.endsWith('s') ? item.unitType : `${item.unitType}s`);
+                return { text, isLong: false };
+            }
+            return { text: item.unitType, isLong: false };
+        }
+
+        function mealPlanner_handleSelectionChange(selectElement) {
+            const wrapper = selectElement.closest('.item-wrapper');
+            const detailsDiv = wrapper.querySelector('.details-container');
+            const selectedIndex = selectElement.value;
+            const category = selectElement.dataset.category;
+
+            if (selectedIndex >= 0) {
+                const item = mealPlanner_foodData[category][selectedIndex];
+                const itemCountWrapper = detailsDiv.querySelector('.item-count-wrapper');
+                const amountWrapper = detailsDiv.querySelector('.amount-wrapper');
+                const itemCountInput = detailsDiv.querySelector('.item-count-input');
+                const amountInput = detailsDiv.querySelector('.amount-input');
+                
+                if (item.controlType === 'count_only') {
+                    itemCountWrapper.classList.remove('hidden');
+                    amountWrapper.classList.add('hidden');
+                    itemCountInput.value = 1;
+                    
+                    const simpleFractions = ['half', 'quarter'];
+                    const isSimpleFraction = simpleFractions.some(key => item.unitType.startsWith(key));
+                    itemCountInput.step = isSimpleFraction ? "0.5" : "1";
+
+                } else { 
+                    itemCountWrapper.classList.add('hidden');
+                    amountWrapper.classList.remove('hidden');
+                    amountInput.value = item.baseAmount;
+                }
+                detailsDiv.classList.remove('hidden');
+            } else {
+                detailsDiv.classList.add('hidden');
+            }
+            mealPlanner_calculateTotal();
+        }
+
+        function mealPlanner_calculateTotal() {
+            let total = 0;
+            Object.values(mealPlanner_itemContainers).forEach(container => {
+                Array.from(container.children).forEach(itemWrapper => {
+                    const select = itemWrapper.querySelector('select');
+                    const index = select.value;
+                    if (index >= 0) {
+                        const detailsDiv = itemWrapper.querySelector('.details-container');
+                        const item = mealPlanner_foodData[select.dataset.category][index];
+                        let subtotal = 0, valueForUnit = 0;
+
+                        if (item.controlType === 'count_only') {
+                            const itemCountInput = detailsDiv.querySelector('.item-count-input');
+                            valueForUnit = itemCountInput.value;
+                            subtotal = item.baseCalories * parseFloat(valueForUnit || 1);
+                        } else {
+                            const amountInput = detailsDiv.querySelector('.amount-input');
+                            valueForUnit = amountInput.value;
+                            const caloriesPerUnit = item.baseAmount > 0 ? (item.baseCalories / item.baseAmount) : 0;
+                            subtotal = caloriesPerUnit * parseFloat(valueForUnit || 0);
+                        }
+
+                        const unitSpan = detailsDiv.querySelector('.unit-span');
+                        const formattedUnit = mealPlanner_getFormattedUnit(item, valueForUnit);
+
+                        unitSpan.textContent = formattedUnit.text;
+                        unitSpan.classList.toggle('text-xs', formattedUnit.isLong);
+                        
+                        detailsDiv.querySelector('.subtotal-span').textContent = `${Math.round(subtotal)} kcal`;
+                        total += subtotal;
+                    }
+                });
+            });
+            mealPlanner_totalCaloriesDisplay.textContent = Math.round(total);
+        }
+        
+        function initializeMealPlanner() {
+            Object.keys(mealPlanner_foodData).forEach(key => {
+                if (Array.isArray(mealPlanner_foodData[key])) {
+                    mealPlanner_foodData[key].forEach(item => {
+                        if(item.unit) {
+                            const parsed = mealPlanner_parseUnit(item.unit);
+                            item.baseAmount = parsed.baseAmount;
+                            item.unitType = parsed.unitType;
+                            item.controlType = parsed.controlType;
+                        }
+                    });
+                }
+            });
+            Object.keys(mealPlanner_itemContainers).forEach(cat => mealPlanner_addItem(cat));
+        };
+
+        initializeMealPlanner();
+
+    </script>
+</body>
+</html>
+
