@@ -467,7 +467,14 @@
         startBtn.addEventListener('click', () => showScreen('category-selection'));
         navButtons.forEach(button => {
             button.addEventListener('click', () => {
+                const activeScreen = document.querySelector('.screen.active');
                 const targetId = button.getAttribute('data-target');
+
+                // If leaving the meal planner, reset it
+                if (activeScreen && activeScreen.id === 'meal-planner' && targetId !== 'meal-planner') {
+                    mealPlanner_reset();
+                }
+
                 showScreen(targetId);
             });
         });
@@ -1056,6 +1063,14 @@
             mealPlanner_totalCaloriesDisplay.textContent = Math.round(total);
         }
         
+        function mealPlanner_reset() {
+            Object.values(mealPlanner_itemContainers).forEach(container => {
+                container.innerHTML = '';
+            });
+            Object.keys(mealPlanner_itemContainers).forEach(cat => mealPlanner_addItem(cat));
+            mealPlanner_calculateTotal();
+        }
+
         function initializeMealPlanner() {
             Object.keys(mealPlanner_foodData).forEach(key => {
                 if (Array.isArray(mealPlanner_foodData[key])) {
@@ -1077,4 +1092,5 @@
     </script>
 </body>
 </html>
+
 
