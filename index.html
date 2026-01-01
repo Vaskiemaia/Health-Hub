@@ -66,7 +66,6 @@
 <body class="bg-slate-900 dark:bg-slate-900 flex items-center justify-center min-h-screen transition-colors duration-300">
 
     <div id="main-container" class="w-full max-w-lg mx-auto p-4 md:p-6 transition-all duration-300">
-        <!-- Main Menu Screen -->
         <div id="main-menu" class="screen active">
             <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8 text-center">
                 <div class="w-32 h-32 mx-auto mb-4 bg-brand rounded-full flex items-center justify-center">
@@ -81,7 +80,6 @@
             </div>
         </div>
 
-        <!-- Category Selection Screen -->
         <div id="category-selection" class="screen">
             <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8 text-center">
                  <div class="absolute top-4 left-4">
@@ -101,7 +99,6 @@
             </div>
         </div>
         
-        <!-- Weight Tools Screen -->
         <div id="weight-tools" class="screen">
             <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8 text-center">
                  <div class="absolute top-4 left-4">
@@ -111,20 +108,19 @@
                  </div>
                  <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6 pt-8">Weight Calculators</h1>
                  <div class="space-y-4">
+                     <button data-target="meal-planner" class="nav-btn w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg">
+                         Meal Planner
+                     </button>
                      <button data-target="maintenance-calculator" class="nav-btn w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg">
                          Weight Maintenance
                      </button>
                      <button data-target="goal-planner" class="nav-btn w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg">
                          Target Weight
                      </button>
-                      <button data-target="meal-planner" class="nav-btn w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-4 rounded-lg">
-                         Meal Planner
-                     </button>
-                 </div>
+                     </div>
             </div>
         </div>
 
-        <!-- Exercise Tools Screen -->
         <div id="exercise-tools" class="screen">
             <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8 text-center">
                  <div class="absolute top-4 left-4">
@@ -144,7 +140,6 @@
             </div>
         </div>
         
-        <!-- NEW: Meal Planner Screen -->
         <div id="meal-planner" class="screen">
             <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
                 <div class="absolute top-4 left-4">
@@ -158,7 +153,6 @@
                 </div>
 
                 <div class="flex flex-col gap-6 mb-8">
-                    <!-- Row 1: Breakfast -->
                     <div class="flex justify-center">
                         <div class="bg-gray-100 dark:bg-slate-700 p-4 rounded-lg w-full md:w-1/2">
                             <div class="relative flex justify-center items-center mb-2">
@@ -169,7 +163,6 @@
                         </div>
                     </div>
 
-                    <!-- Row 2: Main Meal -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="bg-gray-100 dark:bg-slate-700 p-4 rounded-lg">
                              <div class="relative flex justify-center items-center mb-2">
@@ -194,7 +187,6 @@
                         </div>
                     </div>
 
-                    <!-- Row 3: Dessert -->
                     <div class="flex justify-center">
                          <div class="bg-gray-100 dark:bg-slate-700 p-4 rounded-lg w-full md:w-1/2">
                             <div class="relative flex justify-center items-center mb-2">
@@ -206,7 +198,6 @@
                     </div>
                 </div>
 
-                <!-- Total Calories Display -->
                 <div class="text-center mt-6 bg-slate-100 dark:bg-slate-900/50 p-6 rounded-2xl border-2 border-brand shadow-lg">
                     <h2 class="text-2xl font-semibold text-gray-500 dark:text-slate-400 mb-2">Total Calories</h2>
                     <div id="meal-planner-total-calories" class="text-6xl font-bold text-brand-dark dark:text-slate-300">0</div>
@@ -215,7 +206,6 @@
         </div>
 
 
-        <!-- Under Desk Bike Calculator Screen -->
         <div id="bike-calculator" class="screen">
             <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
                  <div class="absolute top-4 left-4">
@@ -250,7 +240,6 @@
             </div>
         </div>
 
-        <!-- Walking Calculator Screen -->
         <div id="walking-calculator" class="screen">
             <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
                  <div class="absolute top-4 left-4">
@@ -290,7 +279,6 @@
             </div>
         </div>
 
-        <!-- Maintenance Calculator Screen -->
         <div id="maintenance-calculator" class="screen">
             <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
                 <div class="absolute top-4 left-4">
@@ -348,7 +336,6 @@
             </div>
         </div>
         
-        <!-- Weight Goal Planner Screen -->
         <div id="goal-planner" class="screen">
             <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
                  <div class="absolute top-4 left-4">
@@ -1109,11 +1096,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
