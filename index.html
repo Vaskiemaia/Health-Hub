@@ -736,7 +736,7 @@
         // --- MEAL PLANNER SCRIPT ---
         
         const mealPlanner_foodData = {
-            breakfasts: [
+             breakfasts: [
 		{ name: "-- Bakery", baseCalories: 0, unit: 'item' },
                 { name: "Pain Au Chocolat", baseCalories: 188, unit: 'item' },
                 { name: "Chocolate Chip Brioche Roll", baseCalories: 115, unit: 'item' },
@@ -756,10 +756,6 @@
                 { name: "Yoghurt (Fat Free)", baseCalories: 64, unit: 'pot' },
                 { name: "Fromage Frais", baseCalories: 42, unit: 'pot' },
 		{ name: "-- Sandwiches", baseCalories: 0, unit: 'item' },
-                { name: "Ham & Cheese Toastie", baseCalories: 350, unit: 'item' },
-                { name: "Peanut Butter Sandwhich (25g)", baseCalories: 350, unit: 'item' },
-                { name: "Nutoka Sandwhich (25g)", baseCalories: 330, unit: 'item' },
-                { name: "Biscuit Spread Sandwhich (25g)", baseCalories: 336, unit: 'item' },
                 { name: "Sliced Bread", baseCalories: 96, unit: 'slice' },
                 { name: "Thin Ham", baseCalories: 10, unit: 'slice' },
                 { name: "Cheese", baseCalories: 100, unit: 'slice' },
@@ -769,6 +765,10 @@
                 { name: "Peanut Butter", baseCalories: 155, unit: '25g' },
                 { name: "Nutoka", baseCalories: 138, unit: '25g' },
                 { name: "Biscuits Spread", baseCalories: 144, unit: '25g' },
+                { name: "Ham & Cheese Toastie", baseCalories: 350, unit: 'item' },
+                { name: "Peanut Butter Sandwhich (25g)", baseCalories: 350, unit: 'item' },
+                { name: "Nutoka Sandwhich (25g)", baseCalories: 330, unit: 'item' },
+                { name: "Biscuit Spread Sandwhich (25g)", baseCalories: 336, unit: 'item' },
 		{ name: "-- Coffee", baseCalories: 0, unit: 'item' },
                 { name: "Coffee", baseCalories: 10, unit: 'cup' },
                 { name: "Latte", baseCalories: 80, unit: 'cup' },
@@ -791,30 +791,35 @@
                 { name: "LIDL Cookie", baseCalories: 335, unit: 'item' },
                 { name: "LIDL Brownie", baseCalories: 308, unit: 'item' },
                 { name: "LIDL Pastel de Nata", baseCalories: 164, unit: 'item' },
-                { name: "Custom Item", baseCalories: 1, unit: '1 kcal' }
+                { name: "-- Custom Item", baseCalories: 1, unit: '1 kcal' }
             ],
             mains: [
-		{ name: "-- Meals", baseCalories: 0, unit: 'item' },
-                { name: "Pancetta", baseCalories: 236, unit: 'half pack' },
-                { name: "Sausages", baseCalories: 76, unit: 'sausage' },
-                { name: "Pork Strips", baseCalories: 172, unit: '120g' },
-                { name: "Beef Mince (10%)", baseCalories: 215, unit: '125g' },
-                { name: "Pork Mince (12%)", baseCalories: 230, unit: '125g' },
-                { name: "Meat-Free Mince", baseCalories: 110, unit: '100g' },
-                { name: "Beef Meatballs (5%)", baseCalories: 33, unit: 'meatball' },
+		{ name: "-- Chicken", baseCalories: 0, unit: 'item' },
                 { name: "Chicken Drum Fillets", baseCalories: 165, unit: '150g' },
                 { name: "Chicken Thigh Fillets", baseCalories: 322, unit: '200g' },
                 { name: "Chicken Breast Tikka", baseCalories: 205, unit: '125g' },
                 { name: "Breaded Chicken Steak", baseCalories: 250, unit: 'steak' },
-                { name: "Beef Thin Steak", baseCalories: 146, unit: 'steak' },
-                { name: "Beef Thick Steak", baseCalories: 188, unit: 'steak' },
+		{ name: "-- Pork", baseCalories: 0, unit: 'item' },
+                { name: "Pancetta", baseCalories: 236, unit: 'half pack' },
+                { name: "Pork Mince (12%)", baseCalories: 230, unit: '125g' },
+                { name: "Sausages", baseCalories: 76, unit: 'sausage' },
+                { name: "Pork Strips", baseCalories: 172, unit: '120g' },
                 { name: "Pork Loin Steak", baseCalories: 204, unit: 'steak' },
                 { name: "Pork Shoulder Steak", baseCalories: 295, unit: 'steak' },
+		{ name: "-- Beef", baseCalories: 0, unit: 'item' },
+                { name: "Beef Mince (10%)", baseCalories: 215, unit: '125g' },
+                { name: "Beef Meatballs (5%)", baseCalories: 33, unit: 'meatball' },
+                { name: "Beef Burgers", baseCalories: 186, unit: 'burger' },
+                { name: "Beef Thin Steak", baseCalories: 146, unit: 'steak' },
+                { name: "Beef Thick Steak", baseCalories: 188, unit: 'steak' },
+		{ name: "-- Meat Free", baseCalories: 0, unit: 'item' },
+                { name: "Meat-Free Mince", baseCalories: 110, unit: '100g' },
+		{ name: "-- Fish", baseCalories: 0, unit: 'item' },
                 { name: "Battered Fish Fillet", baseCalories: 244, unit: 'fillet' },
                 { name: "King Prawns", baseCalories: 67, unit: '100g' },
                 { name: "Tuna Chunks", baseCalories: 109, unit: '100g' },
+		{ name: "-- Ready Meals", baseCalories: 0, unit: 'item' },
                 { name: "Lasagne", baseCalories: 561, unit: 'half pack' },
-                { name: "Burgers", baseCalories: 186, unit: 'burger' },
                 { name: "Pizza", baseCalories: 400, unit: 'half pizza' },
                 { name: "ASDA Pizza", baseCalories: 1300, unit: 'half pizza' },
                 { name: "King Kebab", baseCalories: 602, unit: 'half pack' },
@@ -822,15 +827,15 @@
                 { name: "Red Pepper & Mozzarella Parcel", baseCalories: 437, unit: 'lattice' },
                 { name: "Three Cheese Lattice", baseCalories: 426, unit: 'lattice' },
                 { name: "ALDI KFC", baseCalories: 900, unit: 'half pack' },
-                { name: "Francesinha", baseCalories: 1500, unit: 'item' },
-                { name: "Shin Ramyun", baseCalories: 450, unit: 'pack' },
-                { name: "Buldak Carbonara", baseCalories: 550, unit: 'pack' },
-                { name: "Iceland Chicken Nuggets", baseCalories: 44, unit: 'nugget' },
-                { name: "Iceland Chicken Dippers", baseCalories: 37, unit: 'dipper' },
-		{ name: "-- Ready Meals", baseCalories: 0, unit: 'item' },
                 { name: "Iceland Shanghai Beef Noodles", baseCalories: 403, unit: 'pack' },
                 { name: "Iceland Char Siu Pork & Noodles", baseCalories: 535, unit: 'pack' },
-                { name: "Custom Item", baseCalories: 1, unit: '1 kcal' }
+                { name: "Iceland Chicken Nuggets", baseCalories: 44, unit: 'nugget' },
+                { name: "Iceland Chicken Dippers", baseCalories: 37, unit: 'dipper' },
+		{ name: "-- Other", baseCalories: 0, unit: 'item' },
+                { name: "Francesinha with Chips", baseCalories: 1500, unit: 'item' },
+                { name: "Shin Ramyun", baseCalories: 450, unit: 'pack' },
+                { name: "Buldak Carbonara", baseCalories: 550, unit: 'pack' },
+                { name: "-- Custom Item", baseCalories: 1, unit: '1 kcal' }
             ],
             sauces: [
 		{ name: "-- Indian", baseCalories: 0, unit: 'item' },
@@ -845,13 +850,15 @@
                 { name: "Meatballs Tomato & Basil", baseCalories: 39, unit: 'quarter jar' },
                 { name: "Bolognese", baseCalories: 56, unit: 'quarter jar' },
                 { name: "Tomato & Bacon Pasta Bake", baseCalories: 87, unit: 'quarter jar' },
+                { name: "Tomato Passata", baseCalories: 63, unit: 'half pack' },
 		{ name: "-- Thai", baseCalories: 0, unit: 'item' },
                 { name: "Thai Peanut Butter", baseCalories: 156, unit: '25g' },
                 { name: "Thai Red Paste", baseCalories: 156, unit: 'half jar' },
                 { name: "Thai Green Paste", baseCalories: 110, unit: 'half jar' },
 		{ name: "-- Other", baseCalories: 0, unit: 'item' },
                 { name: "Maggi Spice Bag", baseCalories: 117, unit: 'pack' },
-                { name: "Custom Item", baseCalories: 1, unit: '1 kcal' }
+                { name: "Olive Oil", baseCalories: 117, unit: 'pack' },
+                { name: "-- Custom Item", baseCalories: 1, unit: '1 kcal' }
             ],
             sides: [
 		{ name: "-- Main Sides", baseCalories: 0, unit: 'item' },
@@ -866,7 +873,9 @@
 		{ name: "-- Vegetables", baseCalories: 0, unit: 'item' },  
                 { name: "Onions", baseCalories: 34, unit: '100g' },
                 { name: "Mixed Peppers", baseCalories: 25, unit: '100g' },
-                { name: "Mushrooms", baseCalories: 19, unit: '100g' },         
+                { name: "Mushrooms", baseCalories: 19, unit: '100g' },
+                { name: "Sundried Tomatoes", baseCalories: 22, unit: 'item' },
+                { name: "Black Olives", baseCalories: 4, unit: 'item' },    
 		{ name: "-- Other", baseCalories: 0, unit: 'item' },
                 { name: "Burger Buns", baseCalories: 130, unit: 'bun' },
                 { name: "White Tortilla Wrap", baseCalories: 181, unit: 'wrap' },
@@ -875,7 +884,7 @@
                 { name: "Onion Bhaji", baseCalories: 130, unit: 'bhaji' },
                 { name: "Poppadoms", baseCalories: 35, unit: 'poppadom' },
                 { name: "Onion Rings", baseCalories: 221, unit: '100g' },
-                { name: "Custom Item", baseCalories: 1, unit: '1 kcal' }
+                { name: "-- Custom Item", baseCalories: 1, unit: '1 kcal' }
             ],
             desserts: [
 		{ name: "-- Yoghurts", baseCalories: 0, unit: 'item' },
@@ -901,8 +910,8 @@
                 { name: "White Chocolate Bar", baseCalories: 279, unit: 'half bar' },
 		{ name: "-- Snacks", baseCalories: 0, unit: 'item' },
                 { name: "Crisps", baseCalories: 132, unit: '25g bag' },
-                { name: "Popcorn Sweet (ALDI)", baseCalories: 546, unit: 'full bag' },
-                { name: "Popcorn Sweet & Salted (ALDI)", baseCalories: 501, unit: 'full bag' },
+                { name: "Popcorn Sweet (ALDI)", baseCalories: 546, unit: 'bag' },
+                { name: "Popcorn Sweet & Salted (ALDI)", baseCalories: 501, unit: 'bag' },
                 { name: "Popcorn Sweet (Farmfoods)", baseCalories: 477, unit: 'half bag' },
                 { name: "Popcorn Sweet & Salted (Farmfoods)", baseCalories: 480, unit: 'half bag' },
 		{ name: "-- Other", baseCalories: 0, unit: 'item' },
@@ -915,7 +924,7 @@
                 { name: "Cupcake Mix", baseCalories: 138, unit: 'sixth' },
 		{ name: "-- IKEA", baseCalories: 0, unit: 'item' },
                 { name: "Daim Cake", baseCalories: 343, unit: 'slice' },
-                { name: "Custom Item", baseCalories: 1, unit: '1 kcal' }
+                { name: "-- Custom Item", baseCalories: 1, unit: '1 kcal' }
             ]
         };
         const mealPlanner_totalCaloriesDisplay = document.getElementById('meal-planner-total-calories');
